@@ -5,6 +5,7 @@ import { isEmptyOrNull } from '../../util/strings';
 import { colors, layout, A, Label, Caption } from '../../common/styleguide';
 import { Badge } from '../Icons';
 import { CompatibilityTags } from '../CompatibilityTags';
+import { Topics } from '../Topics';
 import { MetaData } from './MetaData';
 import Thumbnail from './Thumbnail';
 
@@ -25,6 +26,7 @@ export default function Library(props: Props) {
             hoverStyle={styles.nameHovered}>
             {library.npmPkg || library.github.name}
           </A>
+
           {library.goldstar && (
             <View style={[styles.displayHorizontal, styles.recommendedContainer]}>
               <Badge width={11} height={16} />
@@ -39,6 +41,9 @@ export default function Library(props: Props) {
         ) : null}
         <View style={styles.verticalMargin}>
           <CompatibilityTags library={library} />
+        </View>
+        <View style={styles.verticalMargin}>
+          <Topics library={library} />
         </View>
         {!isEmptyOrNull(library.github.description) && (
           <View style={styles.verticalMargin}>
