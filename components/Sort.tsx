@@ -15,6 +15,10 @@ type SortButtonProps = {
 
 const sorts = [
   {
+    param: 'relevance',
+    label: 'Relevance',
+  },
+  {
     param: 'updated',
     label: 'Last Updated',
   },
@@ -50,7 +54,7 @@ const sorts = [
 
 export const SortButton = (props: SortButtonProps) => {
   const {
-    query: { order },
+    query: { order, search },
     query,
   } = props;
   const [sortValue, setSortValue] = useState(order || 'updated');
@@ -75,7 +79,7 @@ export const SortButton = (props: SortButtonProps) => {
       <View style={styles.pickerContainer}>
         <P style={styles.title}>
           <Picker
-            selectedValue={sortValue}
+            selectedValue={search && !order ? 'relevance' : sortValue}
             style={[
               styles.picker,
               {
@@ -83,7 +87,7 @@ export const SortButton = (props: SortButtonProps) => {
               },
             ]}
             onValueChange={onPickerChange}>
-            {sorts.map(sort => (
+            {(search ? sorts : sorts.filter(sort => sort.param !== 'relevance')).map(sort => (
               <Picker.Item
                 key={sort.param}
                 value={sort.param}
